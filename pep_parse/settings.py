@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).parent.parent
 RESULTS_DIR = 'results'
 
 FEEDS = {
-    f'{BASE_DIR}/{RESULTS_DIR}/pep_%(time)s.csv':
+    f'{RESULTS_DIR}/pep_%(time)s.csv':
     {
         'format': 'csv',
         'fields': ['number', 'name', 'status'],
