@@ -1,13 +1,32 @@
-# Define your item pipelines here
-#
-# Don't forget to add your pipeline to the ITEM_PIPELINES setting
-# See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+import csv
+from collections import defaultdict
+from datetime import datetime
 
-
-# useful for handling different item types with a single interface
-from itemadapter import ItemAdapter
+from pep_parse.settings import (
+    BASE_DIR,
+    RESULTS_DIR
+)
 
 
 class PepParsePipeline:
+
+    def open_spider(self, spider):
+        self.status_count = defaultdict(int)
+        self.results_dir = RESULTS_DIR
+
     def process_item(self, item, spider):
+        status = item['status']
+        self.status_count[status] += 1
         return item
+
+    def close_spider(self, spider):
+        time_format = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        file_path = f'{self.results_dir}/status_summary_{time_format}.csv'
+        fileroot = BASE_DIR / file_path
+
+        with open(fileroot, 'w', encoding='utf-8') as f:
+            status_summary = [('Статус', 'Количество')]
+            status_summary.extend(self.status_count.items())
+            status_summary.append(('Total', sum(self.status_count.values())))
+            writer = csv.writer(f, lineterminator='\n', dialect=csv.excel)
+            writer.writerows(status_summary)
