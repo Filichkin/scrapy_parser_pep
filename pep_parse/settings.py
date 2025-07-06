@@ -6,6 +6,10 @@ BOT_NAME = 'pep_parse'
 SPIDER_MODULES = ['pep_parse.spiders']
 NEWSPIDER_MODULE = 'pep_parse.spiders'
 
+ALLOWED_DOMAINS = ['peps.python.org']
+SPIDER_NAME = 'pep'
+START_URLS = ['https://peps.python.org/']
+
 ROBOTSTXT_OBEY = True
 
 REQUEST_FINGERPRINTER_IMPLEMENTATION = '2.7'
