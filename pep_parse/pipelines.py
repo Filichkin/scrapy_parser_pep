@@ -22,11 +22,11 @@ class PepParsePipeline:
     def close_spider(self, spider):
         time_format = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
         file_path = f'{self.results_dir}/status_summary_{time_format}.csv'
-        fileroot = BASE_DIR / file_path
+        file_root = BASE_DIR / file_path
 
-        with open(fileroot, 'w', encoding='utf-8') as f:
+        with open(file_root, 'w', encoding='utf-8') as f:
             status_summary = [('Статус', 'Количество')]
             status_summary.extend(self.status_count.items())
             status_summary.append(('Total', sum(self.status_count.values())))
-            writer = csv.writer(f, lineterminator='\n', dialect=csv.excel)
+            writer = csv.writer(f, lineterminator='\n')
             writer.writerows(status_summary)

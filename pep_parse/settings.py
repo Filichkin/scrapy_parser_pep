@@ -12,11 +12,11 @@ REQUEST_FINGERPRINTER_IMPLEMENTATION = '2.7'
 TWISTED_REACTOR = 'twisted.internet.asyncioreactor.AsyncioSelectorReactor'
 FEED_EXPORT_ENCODING = 'utf-8'
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).parent.parent
 RESULTS_DIR = 'results'
 
 FEEDS = {
-    f'{RESULTS_DIR}/pep_%(time)s.csv': 
+    f'{BASE_DIR}/{RESULTS_DIR}/pep_%(time)s.csv':
     {
         'format': 'csv',
         'fields': ['number', 'name', 'status'],
@@ -25,5 +25,5 @@ FEEDS = {
 }
 
 ITEM_PIPELINES = {
-    f'{BOT_NAME}.pipelines.PepParsePipeline': 300,
+    'pep_parse.pipelines.PepParsePipeline': 300,
 }
