@@ -14,3 +14,16 @@ FEED_EXPORT_ENCODING = 'utf-8'
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 RESULTS_DIR = 'results'
+
+FEEDS = {
+    f'{RESULTS_DIR}/pep_%(time)s.csv': 
+    {
+        'format': 'csv',
+        'fields': ['number', 'name', 'status'],
+        'overwrite': True,
+    }
+}
+
+ITEM_PIPELINES = {
+    f'{BOT_NAME}.pipelines.PepParsePipeline': 300,
+}
