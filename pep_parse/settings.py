@@ -8,7 +8,7 @@ NEWSPIDER_MODULE = 'pep_parse.spiders'
 
 ALLOWED_DOMAINS = ['peps.python.org']
 SPIDER_NAME = 'pep'
-START_URLS = ['https://peps.python.org/']
+START_URLS = ['http://peps.python.org/']
 
 ROBOTSTXT_OBEY = True
 
